@@ -107,11 +107,11 @@
 
   /* ---------------- Плеер «Зимние мелодии» ---------------- */
   const TRACKS = [
-    { src: "assets/melody1.mp3", title: "Первый снег" },
-    { src: "assets/melody2.mp3", title: "Зимний вечер" },
-    { src: "assets/melody3.mp3", title: "Свет гирлянды" },
-    { src: "assets/melody4.mp3", title: "Тихая метель" },
-    { src: "assets/melody5.mp3", title: "Новогоднее чудо" },
+    { src: "melody1.mp3", title: "Первый снег" },
+    { src: "melody2.mp3", title: "Зимний вечер" },
+    { src: "melody3.mp3", title: "Свет гирлянды" },
+    { src: "melody4.mp3", title: "Тихая метель" },
+    { src: "melody5.mp3", title: "Новогоднее чудо" },
   ];
   const player = $("player"), playBtn = $("playBtn"), trackName = $("trackName");
   const audio = new Audio();
