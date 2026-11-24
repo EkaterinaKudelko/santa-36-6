@@ -41,7 +41,7 @@ function render(){
  for(let n=1;n<=12;n++){
    if(used.has(n))continue;
    const el=document.createElement("div");el.className="gift";el.dataset.no=n;
-   el.innerHTML=`<span class="emoji">${emojis[n-1]}</span><span class="num">${emojis[n-1]} · ПОДАРОК № ${n}</span>`;
+   el.innerHTML=`<span class="emoji">${emojis[n-1]}</span><span class="num">ПОДАРОК № ${n}</span>`;
    root.append(el);
  }
  document.getElementById("counter").textContent=`${12-used.size} ${word(12-used.size)} ждут своих героев`;
