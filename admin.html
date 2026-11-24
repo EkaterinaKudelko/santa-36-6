@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Мастерская Деда Мороза — панель ведущей</title>
+<style>
+:root{--gold:#d8b875;--cream:#fff6df;--ink:#17352f;--pine:#143d35;--pine2:#205447}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--cream);font-family:Georgia,'Times New Roman',serif;background:radial-gradient(ellipse at 50% 0%,#315e50 0,#173b34 45%,#102a28 100%);padding:26px 16px 60px}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:radial-gradient(#fff 1px,transparent 1.5px);background-size:37px 41px}
+.wrap{max-width:1040px;margin:auto;position:relative}.head{text-align:center;margin:8px 0 24px}.head .icon{font-size:36px}.head h1{font-size:clamp(27px,5vw,42px);font-weight:500;margin:5px 0;color:#f5e6c2}.head p{margin:0;color:#d4dfd4;font:14px Arial,sans-serif}
+.panel{background:rgba(244,238,217,.96);color:#294239;border:1px solid #d6bd83;border-radius:22px;padding:22px;box-shadow:0 18px 60px #061b18a8;margin:16px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#e9e2cc;border-radius:14px;text-align:center;padding:12px}.stat b{display:block;font:700 29px Arial;color:#245345}.stat span{font:12px Arial;color:#65766a}
+h2{font-size:21px;margin:0 0 14px;color:#244a3e}label{display:block;font:700 13px Arial;margin:0 0 7px;color:#52675a}
+select{width:100%;padding:13px;border:1px solid #c7b98f;border-radius:10px;background:#fffdf5;color:#27463b;font:16px Arial}
+.help{font:13px/1.5 Arial;color:#62736a;margin:8px 0 0}
+.gifts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gift{border:1px solid #c9b98e;border-radius:15px;background:linear-gradient(145deg,#fffdf4,#e9e1cb);color:#29483d;padding:13px 7px;cursor:pointer;min-height:106px;transition:.18s;box-shadow:0 4px 0 #d2c39c}
+.gift:hover:not(:disabled){transform:translateY(-3px);border-color:#a27a38;box-shadow:0 7px 0 #cbb98d}.gift .emoji{font-size:35px;display:block}.gift b{display:block;font:700 13px Arial;margin-top:4px}.gift small{display:block;font:11px Arial;color:#748176;margin-top:4px}
+.gift:disabled{opacity:.45;cursor:default;filter:grayscale(.7);box-shadow:none}.gift.selected{outline:3px solid #b78d42;background:#fff4d7}
+.output{background:#e7e0ca;border:1px solid #c8b98e;border-radius:15px;padding:15px;margin-top:14px}.output .url{overflow-wrap:anywhere;background:#fffdf5;padding:10px;border-radius:8px;font:12px/1.4 monospace;color:#31584a}
+button.action{border:0;border-radius:10px;background:#245446;color:#fff8e5;padding:12px 16px;font:700 14px Arial;cursor:pointer}button.action:hover{background:#316b59}button.secondary{background:#7c6b4c}button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.linkbtn{flex:0 0 auto}
+.log{width:100%;border-collapse:collapse;font:13px Arial}.log th,.log td{text-align:left;padding:9px 7px;border-bottom:1px solid #d5cbb0;vertical-align:top}.log th{color:#647267;font-size:11px;text-transform:uppercase}.log td{color:#2e4a3e}
+.warn{font:12px/1.5 Arial;color:#786b4c;background:#f6efd9;padding:10px 12px;border-radius:10px;margin-top:12px}
+.toplinks{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}.toplinks a{color:#f6e7c6;font:13px Arial}
+.privacybar{display:flex;justify-content:center;margin:12px 0 18px}.privacybar button{border:1px solid #d8b875;background:#173d35;color:#fff2d0;border-radius:999px;padding:11px 18px;font:700 13px Arial;cursor:pointer}.privacybar button[aria-pressed="true"]{background:#8b6a32;border-color:#f0d99e}.privacy-note{display:none;text-align:center;color:#f7e7c5;font:13px/1.5 Arial;background:#0c2b25aa;border:1px solid #d8b87566;border-radius:12px;padding:10px;margin:10px 0 16px}.privacy-mode .private-only{display:none!important}.privacy-mode .history-private{display:none!important}.privacy-mode .privacy-note{display:block}.privacy-mode #recipient{display:none!important}.privacy-mode #recipientHidden{display:block!important}
+@media(max-width:600px){body{padding:15px 10px 35px}.panel{padding:16px;border-radius:17px}.gifts{grid-template-columns:repeat(3,1fr);gap:9px}.gift{min-height:92px}.gift .emoji{font-size:30px}.log{font-size:11px}.log th,.log td{padding:7px 4px}}
+</style></head><body><main class="wrap">
+<header class="head"><div class="icon">🎄 ✨ 🎁</div><h1>Мастерская Деда Мороза</h1><p>Секретная панель ведущей · Тайный Санта</p></header>
+<nav class="toplinks"><a href='/board' rel='noopener' target='_blank'>Открыть отдельную зимнюю поляну ↗</a></nav>
+<div class="privacybar"><button id="privacyToggle" type="button" aria-pressed="false">🔒 Включить анонимный режим для демонстрации</button></div>
+<div class="privacy-note" id="privacyNote">🔒 Анонимный режим включён. Имя выбранного участника, дарителей и получателей скрыто. Выбирай подарок по эмодзи и номеру. Для следующего участника выключи режим, выбери его в списке и снова включи анонимный режим.</div>
+<section class="panel">
+<div class="stats"><div class="stat"><b id="total">12</b><span>участников</span></div><div class="stat"><b id="done">0</b><span>подарков выбрано</span></div><div class="stat"><b id="left">12</b><span>осталось</span></div></div>
+</section>
+<section class="panel private-only" id="giverPanel">
+<h2>① Кто сейчас выбирает?</h2>
+<label for="giver">Выбери участника, которого ты вызвала на встрече</label>
+<select id="giver"></select>
+<p class="help">Перед демонстрацией выбери участника, затем включи анонимный режим. Его имя не будет отображаться на экране.</p>
+</section>
+<section class="panel">
+<h2>② Выбери подарок, который назвал коллега</h2>
+<div class="gifts" id="gifts"></div>
+<div class="output" id="output" hidden>
+<strong id="resultTitle">Подарок выбран</strong>
+<p id="recipient" style="margin:8px 0 12px;font:14px/1.45 Arial"></p><p id="recipientHidden" style="display:none;margin:8px 0 12px;font:14px/1.45 Arial">Получатель назначен. Имя и должность скрыты в режиме демонстрации.</p>
+<label>Персональная ссылка для участника</label>
+<div class="url" id="url"></div>
+<div class="row" style="margin-top:10px">
+<button class="action" id="copy">Скопировать ссылку</button>
+<button class="action secondary" id="openLink">Проверить письмо ↗</button>
+</div>
+<p class="help" id="copyStatus" aria-live="polite"></p>
+</div>
+<p class="warn">Перед демонстрацией включи анонимный режим. В нём имена дарителей и получателей скрываются в этой панели. Для максимальной осторожности можно по-прежнему демонстрировать отдельную страницу board.html.</p>
+</section>
+<section class="panel">
+<div class="row" style="justify-content:space-between"><h2 style="margin:0">③ История жеребьёвки</h2><button class="action secondary" id="reset" style="flex:0 0 auto">Сбросить всё</button></div>
+<div style="overflow-x:auto;margin-top:12px"><table class="log"><thead><tr><th>Подарок</th><th class="history-private">Даритель</th><th class="history-private">Получатель</th><th class="history-anon" style="display:none">Назначение</th><th>Ссылка</th></tr></thead><tbody id="history"><tr><td colspan="4">Пока никто не выбирал подарок.</td></tr></tbody></table></div>
+</section>
+</main>
+<script>
+const PEOPLE = [{"id": "p01", "name": "Гурина Людмила Георгиевна", "name_gen": "Гуриной Людмилы Георгиевны", "position": "Менеджер интернет-проекта", "pos_gen": "менеджера интернет-проекта"}, {"id": "p02", "name": "Егорова Арина Владимировна", "name_gen": "Егоровой Арины Владимировны", "position": "Менеджер по торговому маркетингу", "pos_gen": "менеджера по торговому маркетингу"}, {"id": "p03", "name": "Золина Татьяна Олеговна", "name_gen": "Золиной Татьяны Олеговны", "position": "Ведущий менеджер", "pos_gen": "ведущего менеджера"}, {"id": "p04", "name": "Игнатущенко Елена Васильевна", "name_gen": "Игнатущенко Елены Васильевны", "position": "Менеджер по клиентскому сервису", "pos_gen": "менеджера по клиентскому сервису"}, {"id": "p05", "name": "Куликова Яна Александровна", "name_gen": "Куликовой Яны Александровны", "position": "Руководитель управление СРМ", "pos_gen": "руководителя управления CRM"}, {"id": "p06", "name": "Максимова Евгения Юрьевна", "name_gen": "Максимовой Евгении Юрьевны", "position": "Менеджер по трейд-маркетингу", "pos_gen": "менеджера по трейд-маркетингу"}, {"id": "p07", "name": "Манакова Снежана Рахимяновна", "name_gen": "Манаковой Снежаны Рахимяновны", "position": "Редактор", "pos_gen": "редактора"}, {"id": "p08", "name": "Михайленко Екатерина Олеговна", "name_gen": "Михайленко Екатерины Олеговны", "position": "Менеджер аналитики и продвижения", "pos_gen": "менеджера аналитики и продвижения"}, {"id": "p09", "name": "Осипенко Антонина Александровна", "name_gen": "Осипенко Антонины Александровны", "position": "Менеджер по маркетингу", "pos_gen": "менеджера по маркетингу"}, {"id": "p10", "name": "Перелыгина Екатерина Анатольевна", "name_gen": "Перелыгиной Екатерины Анатольевны", "position": "Руководитель направления программы лояльности", "pos_gen": "руководителя направления программы лояльности"}, {"id": "p11", "name": "Волошина Элла Андреевна", "name_gen": "Волошиной Эллы Андреевны", "position": "Менеджер по рекламе", "pos_gen": "менеджера по рекламе"}, {"id": "p12", "name": "Титов Михаил Алексеевич", "name_gen": "Титова Михаила Алексеевича", "position": "Ведущий менеджер отдела рекламы", "pos_gen": "ведущего менеджера отдела рекламы"}];
+const STORE = "santa-team-draw-v1";
+const CHANNEL = "santa-winter-board";
+const $ = id => document.getElementById(id);
+const gifts = Array.from({length:12},(_,i)=>i+1);
+const GIFT_EMOJIS = ["🎁","💝","❄️","☃️","🐐","🐑","💃🏻","🎄","🎇","🍾","🛍️","🔮"];
+let privacyMode = false;
+let state = loadState();
+let lastLink = "";
+function loadState(){try{const s=JSON.parse(localStorage.getItem(STORE));if(s&&s.assignments)return s}catch(e){}return {assignments:{},usedGivers:[],usedRecipients:[]}}
+function save(){localStorage.setItem(STORE,JSON.stringify(state));}
+function shuffled(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x}
+function derangement(givers,recipients){
+ if(givers.length!==recipients.length)return null;
+ if(givers.length===1)return givers[0]!==recipients[0]?[recipients[0]]:null;
+ for(let tries=0;tries<20000;tries++){const r=shuffled(recipients);if(givers.every((g,i)=>g!==r[i]))return r}
+ return null;
+}
+function remainingGivers(){return PEOPLE.filter(p=>!state.usedGivers.includes(p.id))}
+function remainingRecipients(){return PEOPLE.filter(p=>!state.usedRecipients.includes(p.id))}
+function render(){
+ const used=Object.keys(state.assignments).map(Number);
+ $("done").textContent=used.length;$("left").textContent=12-used.length;
+ const sel=$("giver"),prev=sel.value;sel.innerHTML="";
+ remainingGivers().forEach(p=>{const o=document.createElement("option");o.value=p.id;o.textContent=p.name;sel.append(o)});
+ if(remainingGivers().some(p=>p.id===prev))sel.value=prev;
+ else if(sel.options.length)sel.selectedIndex=0;
+ $("gifts").innerHTML="";
+ gifts.forEach(n=>{const b=document.createElement("button");b.className="gift";b.disabled=!!state.assignments[n];b.innerHTML=`<span class="emoji">${GIFT_EMOJIS[n-1]}</span><b>${GIFT_EMOJIS[n-1]} · № ${n}</b><small>${state.assignments[n]?"Уже выбран":"Выбрать"}</small>`;if(state.assignments[n])b.classList.add("selected");b.addEventListener("click",()=>choose(n));$("gifts").append(b)});
+ const rows=Object.entries(state.assignments).sort((a,b)=>Number(a[0])-Number(b[0]));
+ $("history").innerHTML=rows.length?rows.map(([n,a])=>privacyMode?`<tr><td>${GIFT_EMOJIS[Number(n)-1]} · № ${n}</td><td colspan="2">🔒 Назначение скрыто</td><td><button class="action" data-copy="${n}" style="padding:7px 9px">Копировать</button></td></tr>`:`<tr><td>${GIFT_EMOJIS[Number(n)-1]} · № ${n}</td><td>${escapeHtml(a.giverName)}</td><td>${escapeHtml(a.recipientName)}<br><small>${escapeHtml(a.position)}</small></td><td><button class="action" data-copy="${n}" style="padding:7px 9px">Копировать</button></td></tr>`).join(""):'<tr><td colspan="4">Пока никто не выбирал подарок.</td></tr>';
+ document.querySelectorAll(".history-private").forEach(el=>el.style.display=privacyMode?"none":"");
+ const anonHead=document.querySelector(".history-anon");if(anonHead)anonHead.style.display=privacyMode?"table-cell":"none";
+ $("history").querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>copyText(state.assignments[b.dataset.copy].link)));
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function sha(bytes){return new Uint8Array(await crypto.subtle.digest("SHA-256",bytes))}
+function b64url(bytes){let s="";bytes.forEach(b=>s+=String.fromCharCode(b));return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
+function randomToken(){const b=new Uint8Array(18);crypto.getRandomValues(b);return b64url(b)}
+async function encrypt(token,payload){
+ const raw=new TextEncoder().encode(JSON.stringify(payload));let stream=new Uint8Array(0);
+ for(let i=0;stream.length<raw.length;i++){const k=await sha(new TextEncoder().encode(`${token}|${i}`));const joined=new Uint8Array(stream.length+k.length);joined.set(stream);joined.set(k,stream.length);stream=joined}
+ const out=raw.map((b,i)=>b^stream[i]);return b64url(out)
+}
+function makeLink(token,pack){const u=new URL("index.html",location.href);u.hash=`t=${token}&d=${pack}`;return u.href}
+async function choose(giftNo){
+ const giver=PEOPLE.find(p=>p.id===$("giver").value);
+ if(!giver){alert("Сначала выбери участника.");return}
+ if(state.assignments[giftNo])return;
+ const gs=remainingGivers(),rs=remainingRecipients();
+ const order=derangement(gs.map(p=>p.id),rs.map(p=>p.id));
+ if(!order){alert("Не удалось построить корректное распределение. Ничего не изменено.");return}
+ const recipientId=order[gs.findIndex(p=>p.id===giver.id)];
+ const recipient=PEOPLE.find(p=>p.id===recipientId);
+ if(!recipient||recipient.id===giver.id){alert("Защитная проверка не пройдена: повтори выбор.");return}
+ const token=randomToken();
+ const payload={name_gen:recipient.name_gen,pos_gen:recipient.pos_gen};
+ const pack=await encrypt(token,payload);
+ const link=makeLink(token,pack);
+ state.assignments[giftNo]={giverId:giver.id,giverName:giver.name,recipientId:recipient.id,recipientName:recipient.name_gen,position:recipient.pos_gen,token,link};
+ state.usedGivers.push(giver.id);state.usedRecipients.push(recipient.id);save();
+ lastLink=link;
+ $("output").hidden=false;$("resultTitle").textContent=`🎁 Подарок № ${giftNo} выбран`;
+ $("recipient").textContent=`Получатель: ${recipient.name_gen} · ${recipient.pos_gen}`;$("recipientHidden").textContent="Получатель назначен. Имя и должность скрыты в режиме демонстрации.";
+ $("url").textContent=link;$("copyStatus").textContent="Ссылка готова. Скопируй её и отправь коллеге лично.";
+ $("copy").onclick=()=>copyText(link);$("openLink").onclick=()=>window.open(link,"_blank","noopener");
+ try{const ch=new BroadcastChannel(CHANNEL);ch.postMessage({type:"gift-used",giftNo});ch.close()}catch(e){}
+ render();
+}
+async function copyText(text){try{await navigator.clipboard.writeText(text);$("copyStatus").textContent="✓ Ссылка скопирована. Можно отправлять участнику."}catch(e){$("url").focus?.();prompt("Скопируй ссылку:",text)}}
+$("reset").addEventListener("click",()=>{if(!confirm("Сбросить все 12 выборов и начать жеребьёвку заново? Это удалит сохранённые назначения на этом устройстве."))return;state={assignments:{},usedGivers:[],usedRecipients:[]};save();$("output").hidden=true;lastLink="";try{const ch=new BroadcastChannel(CHANNEL);ch.postMessage({type:"reset"});ch.close()}catch(e){}render()});
+function setPrivacyMode(on){
+ privacyMode=!!on;
+ document.body.classList.toggle("privacy-mode",privacyMode);
+ $("privacyToggle").setAttribute("aria-pressed",String(privacyMode));
+ $("privacyToggle").textContent=privacyMode?"🔓 Выключить анонимный режим":"🔒 Включить анонимный режим для демонстрации";
+ render();
+}
+$("privacyToggle").addEventListener("click",()=>setPrivacyMode(!privacyMode));
+render();
+</script></body></html>

@@ -1,0 +1,244 @@
+/* ============ Тайный Санта · Зимняя сказка ============ */
+:root{
+  --cream:#f3e7c9; --paper:#efe3c2; --gold:#d4a94e; --gold-soft:#e8c87e;
+  --wine:#7b2b33; --wine-deep:#5c1f27; --fir:#1d3b2f; --ink:#4a3a26;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  background:#0b1d24; color:var(--cream); overflow:hidden;
+}
+button{font:inherit;background:none;border:none;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+
+/* ---------- Загрузка ---------- */
+.loader{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;gap:18px;
+  align-items:center;justify-content:center;background:radial-gradient(120% 120% at 50% 30%,#12313c 0%,#08161c 70%);
+  transition:opacity .8s ease, visibility .8s}
+.loader.done{opacity:0;visibility:hidden}
+.loader-flake{font-size:44px;color:#dfeef5;animation:loaderSpin 2.6s linear infinite;text-shadow:0 0 24px rgba(232,200,126,.8)}
+.loader-text{font-style:italic;font-size:clamp(16px,2.4vw,21px);color:#cfe0e6;letter-spacing:.04em}
+@keyframes loaderSpin{to{transform:rotate(360deg)}}
+
+/* ---------- Сцена ---------- */
+.scene{position:fixed;inset:0;overflow:hidden}
+.scene-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scene-veil{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(100% 90% at 50% 46%, rgba(6,18,24,0) 45%, rgba(5,15,20,.28) 85%, rgba(4,12,16,.45) 100%),
+    linear-gradient(to bottom, rgba(6,16,22,.38), rgba(6,16,22,0) 26%, rgba(6,16,22,0) 62%, rgba(5,13,18,.5))}
+/* ---------- Живое северное сияние: перекрашивается прямо на вашей картинке ---------- */
+.fx-aur{position:absolute;inset:0;pointer-events:none;will-change:filter;
+  -webkit-mask-image:url("assets/aurora_mask.webp");mask-image:url("assets/aurora_mask.webp");
+  -webkit-mask-size:cover;mask-size:cover;-webkit-mask-position:center;mask-position:center;
+  animation:aurLive 26s ease-in-out infinite}
+.fx-aur picture,.fx-lights picture{display:contents}
+.fx-aur img,.fx-lights img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@keyframes aurLive{
+  0%{filter:hue-rotate(0deg) saturate(1.15) brightness(1)}
+  18%{filter:hue-rotate(-48deg) saturate(1.4) brightness(1.15)}
+  36%{filter:hue-rotate(-85deg) saturate(1.5) brightness(1.05)}
+  54%{filter:hue-rotate(42deg) saturate(1.35) brightness(1.2)}
+  72%{filter:hue-rotate(70deg) saturate(1.45) brightness(1)}
+  88%{filter:hue-rotate(20deg) saturate(1.3) brightness(1.1)}
+  100%{filter:hue-rotate(0deg) saturate(1.15) brightness(1)}}
+
+/* полупрозрачные дрейфующие занавеси поверх неба */
+.aurora{position:absolute;left:-14%;top:-13%;width:128%;height:76%;pointer-events:none;
+  mix-blend-mode:screen;background:url("assets/aurora.webp") top center/cover no-repeat;will-change:transform,filter;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 52%,rgba(0,0,0,.55) 78%,transparent 97%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 52%,rgba(0,0,0,.55) 78%,transparent 97%)}
+.aur-a{opacity:.45;animation:aurDriftA 38s ease-in-out infinite alternate, aurHueA 23s ease-in-out infinite alternate}
+.aur-b{opacity:.28;background-position:top 26% center;
+  animation:aurDriftB 47s ease-in-out infinite alternate, aurHueB 31s ease-in-out infinite alternate}
+@keyframes aurDriftA{from{transform:translate(0,0) scale(1)}to{transform:translate(3.5%,1.5%) scale(1.07)}}
+@keyframes aurDriftB{from{transform:scaleX(-1) translate(0,0) scale(1.03)}to{transform:scaleX(-1) translate(-4%,2%) scale(1)}}
+@keyframes aurHueA{
+  0%{filter:hue-rotate(0deg) saturate(1.15) brightness(1)}
+  35%{filter:hue-rotate(-55deg) saturate(1.35) brightness(1.18)}
+  70%{filter:hue-rotate(52deg) saturate(1.25) brightness(.92)}
+  100%{filter:hue-rotate(-22deg) saturate(1.3) brightness(1.12)}}
+@keyframes aurHueB{
+  0%{filter:hue-rotate(30deg) saturate(1.2) brightness(1.05)}
+  40%{filter:hue-rotate(-40deg) saturate(1.3) brightness(.9)}
+  75%{filter:hue-rotate(65deg) saturate(1.35) brightness(1.15)}
+  100%{filter:hue-rotate(-10deg) saturate(1.15) brightness(1)}}
+
+/* ---------- Живые огоньки фонариков (колыхание от ветра) ---------- */
+.fx-lights{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;will-change:filter;
+  animation:flick 6.4s .2s ease-in-out infinite}
+@keyframes flick{
+  0%,100%{filter:brightness(.9) saturate(1)}
+  11%{filter:brightness(1.14) saturate(1.08)}
+  24%{filter:brightness(.96) saturate(1)}
+  38%{filter:brightness(1.22) saturate(1.15)}
+  53%{filter:brightness(1.01) saturate(1.02)}
+  69%{filter:brightness(1.16) saturate(1.1)}
+  85%{filter:brightness(.93) saturate(.98)}}
+@media (max-aspect-ratio:1/1){
+  .aurora{left:-32%;top:-10%;width:164%;height:58%}
+  .fx-aur{-webkit-mask-image:url("assets/aurora_mask_mobile.webp");mask-image:url("assets/aurora_mask_mobile.webp")}
+}
+
+.tree-glow{position:absolute;left:-6%;top:6%;width:52%;height:88%;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(50% 50% at 45% 55%, rgba(255,196,105,.20), rgba(255,196,105,.06) 55%, transparent 72%);
+  animation:glowPulse 7s ease-in-out infinite alternate}
+@keyframes glowPulse{from{opacity:.55}to{opacity:1}}
+@media (max-aspect-ratio:1/1){
+  .tree-glow{left:2%;top:0;width:96%;height:60%}
+}
+#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* ---------- Шапка ---------- */
+@keyframes twinkle{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ---------- Сцена с конвертом ---------- */
+.stage{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(18px,4vh,42px);padding:84px 16px 60px}
+.hint{font-style:italic;font-size:clamp(19px,3vw,30px);color:#f2e6c4;text-align:center;
+  text-shadow:0 2px 18px rgba(0,0,0,.7);opacity:0;animation:hintIn 1.6s 1.1s ease forwards;line-height:1.35}
+@keyframes hintIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.stage.opening .hint,.stage.gone .hint{transition:opacity .7s;opacity:0!important}
+.stage.gone{pointer-events:none;opacity:0;transition:opacity 1s ease}
+
+/* ---------- Конверт ---------- */
+.env-wrap{position:relative;display:block;perspective:1300px;opacity:0;transform:translateY(-60vh) scale(.7);
+  animation:envArrive 1.9s 1.5s cubic-bezier(.22,.9,.3,1) forwards}
+@keyframes envArrive{
+  0%{opacity:0;transform:translateY(-60vh) scale(.7)}
+  55%{opacity:1}
+  80%{transform:translateY(2.5%) scale(1.02)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+.env-float{animation:hover 5.2s 3.6s ease-in-out infinite;filter:drop-shadow(0 26px 34px rgba(0,0,0,.55))}
+@keyframes hover{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-12px) rotate(.5deg)}}
+.envelope{
+  position:relative;width:min(76vw,440px);aspect-ratio:1512/1022;transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.2,.7,.3,1);
+}
+.env-wrap:hover .envelope,.env-wrap:focus-visible .envelope{transform:translateY(-10px) scale(1.045) rotateX(6deg)}
+.env-wrap:active .envelope{transform:scale(.985)}
+
+/* ---------- Конверт: фото пользователя (два слоя) ---------- */
+.env-base,.env-overlay{position:absolute;inset:0;width:100%;height:100%;user-select:none;-webkit-user-drag:none}
+/* подсветка печати при наведении */
+.seal-glow{position:absolute;left:51.45%;top:51.7%;width:36%;aspect-ratio:1;border-radius:50%;
+  transform:translate(-50%,-50%) scale(.72);pointer-events:none;mix-blend-mode:screen;
+  opacity:0;transition:opacity .55s ease, transform .55s ease;
+  background:radial-gradient(circle, rgba(255,216,132,.42) 0%, rgba(255,193,96,.24) 36%, rgba(255,180,70,.08) 60%, transparent 71%)}
+.env-wrap:hover .seal-glow,.env-wrap:focus-visible .seal-glow{opacity:1;transform:translate(-50%,-50%) scale(1);
+  animation:glowBreath 2.2s .55s ease-in-out infinite alternate}
+@keyframes glowBreath{from{filter:brightness(1)}to{filter:brightness(1.35)}}
+/* клик: бечёвка и печать растворяются, конверт остаётся */
+.envelope.cracked .seal-glow{animation:sealBloom .95s ease forwards}
+@keyframes sealBloom{
+  0%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  40%{opacity:1;transform:translate(-50%,-50%) scale(1.55)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2.2)}
+}
+.envelope.cracked .env-overlay{animation:twineMelt 1.2s .05s cubic-bezier(.4,.1,.5,.8) forwards}
+@keyframes twineMelt{
+  0%{opacity:1;filter:blur(0);transform:none}
+  30%{opacity:.9;filter:blur(2px)}
+  100%{opacity:0;filter:blur(11px);transform:scale(1.05) translateY(-1.5%)}
+}
+
+.env-caption{position:absolute;left:50%;bottom:-2.35em;transform:translateX(-50%);white-space:nowrap;
+  font-family:'Caveat',cursive;font-weight:700;font-size:clamp(24px,4.6vw,36px);color:#f6ead0;
+  text-shadow:0 2px 14px rgba(0,0,0,.8),0 0 26px rgba(232,200,126,.55);
+  animation:captionPulse 2.6s ease-in-out infinite}
+@keyframes captionPulse{0%,100%{opacity:.82}50%{opacity:1;text-shadow:0 2px 14px rgba(0,0,0,.8),0 0 40px rgba(232,200,126,.95)}}
+
+/* ---------- Письмо ---------- */
+.letter-card{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(5,14,19,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  opacity:0;transition:opacity .8s ease}
+.letter-card.show{opacity:1}
+.paper{position:relative;width:min(92vw,640px);max-height:88dvh;overflow:auto;padding:clamp(30px,6vw,58px) clamp(24px,6vw,60px);
+  color:var(--ink);border-radius:6px;
+  background:url("assets/paper.webp") center/cover no-repeat;
+  box-shadow:0 30px 80px rgba(0,0,0,.65), inset 0 0 0 1px rgba(120,90,40,.3), inset 0 0 60px rgba(150,110,50,.16);
+  transform-origin:top center;opacity:0}
+@media (max-aspect-ratio:1/1){
+  .letter-card{padding:72px 16px 18px}
+  .paper{max-height:calc(100dvh - 90px)}
+} /* резервируем место сверху под мобильный плеер */
+/* письмо разворачивается, будто его расправили */
+.letter-card.show .paper{animation:unfold 1.15s cubic-bezier(.3,.9,.35,1) forwards}
+@keyframes unfold{
+  0%{transform:perspective(1400px) rotateX(-74deg) scale(.6);opacity:.25}
+  55%{transform:perspective(1400px) rotateX(12deg) scale(1.02);opacity:1}
+  100%{transform:perspective(1400px) rotateX(0) scale(1);opacity:1}
+}
+.paper::-webkit-scrollbar{width:8px}
+.paper::-webkit-scrollbar-thumb{background:rgba(120,90,40,.4);border-radius:4px}
+
+.greet{font-family:'Caveat',cursive;font-weight:700;text-align:center;
+  font-size:clamp(28px,5.4vw,42px);line-height:1.25;color:#6d4a17;margin-bottom:.7em}
+.body{font-size:clamp(19px,2.8vw,24px);line-height:1.55;margin-bottom:.9em;text-align:center}
+.ward-name{display:inline-block;font-family:'Caveat',cursive;font-weight:700;
+  font-size:clamp(26px,4.6vw,36px);color:var(--wine-deep);line-height:1.1;
+  text-shadow:0 1px 0 rgba(255,255,255,.5)}
+.ward-pos{display:inline-block;font-style:italic;color:#7a5a2c;margin-top:.1em}
+.sign{font-family:'Caveat',cursive;font-weight:600;text-align:right;
+  font-size:clamp(24px,4vw,32px);color:#6d4a17;margin-top:1.2em}
+.sign-goat{width:.95em;height:auto;margin-left:.2em;vertical-align:-.14em}
+.line{opacity:0;transform:translateY(14px)}
+.letter-card.show .line{animation:lineIn .9s ease forwards}
+.letter-card.show .line:nth-child(7){animation-delay:.55s}
+.letter-card.show .line:nth-child(8){animation-delay:1s}
+.letter-card.show .line:nth-child(9){animation-delay:1.5s}
+.letter-card.show .line:nth-child(10){animation-delay:2s}
+.letter-card.show .line:nth-child(11){animation-delay:2.4s}
+@keyframes lineIn{to{opacity:1;transform:none}}
+
+.error-card .body{text-align:center;font-style:italic}
+
+/* ---------- Компактный плеер «Зимние мелодии» ---------- */
+.player{position:fixed;top:max(16px,env(safe-area-inset-top));right:max(18px,env(safe-area-inset-right));z-index:50;
+  display:flex;align-items:center;gap:10px;width:min(390px,calc(100vw - 28px));max-width:calc(100vw - 28px);
+  padding:6px 9px 6px 13px;border-radius:999px;text-align:left;
+  background:rgba(16,38,34,.78);border:1px solid rgba(232,200,126,.48);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:0 5px 20px rgba(0,0,0,.35);opacity:0;transform:translateY(-8px);
+  transition:opacity .7s, transform .7s}
+.player.ready{opacity:1;transform:none}
+.player-title{display:none}
+.player-track{font-family:'Caveat',cursive;font-weight:600;font-size:17px;line-height:1.1;color:#f2e6c4;
+  flex:1 1 auto;min-width:0;max-width:none;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-row{display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:5px}
+.pbtn{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-size:13px;color:#f2e6c4;line-height:1;
+  background:rgba(255,255,255,.07);border:1px solid rgba(232,200,126,.35);transition:transform .25s, background .25s}
+.pbtn:hover{transform:scale(1.1);background:rgba(255,255,255,.14)}
+.pbtn-main{width:34px;height:34px;font-size:15px;color:#ffe9b0;
+  box-shadow:0 0 12px rgba(232,200,126,.28)}
+@media (max-aspect-ratio:1/1){
+  .player{top:calc(env(safe-area-inset-top) + 12px);right:auto;bottom:auto;left:50%;
+    transform:translate(-50%,-8px);gap:8px;width:min(420px,calc(100vw - 28px));
+    max-width:calc(100vw - 28px);padding:5px 8px 5px 11px}
+  .player.ready{transform:translate(-50%,0)}
+  .player-track{font-size:16px;max-width:none}
+  .player-row{gap:4px}
+  .pbtn{width:29px;height:29px;font-size:12px}
+  .pbtn-main{width:33px;height:33px;font-size:14px}
+}
+
+/* ---------- Подпись разработчика ---------- */
+.credit{position:absolute;left:max(14px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom));z-index:7;
+  max-width:min(56vw,420px);font-size:clamp(9px,1.3vw,12px);line-height:1.4;color:#cfe0e6;opacity:.72;
+  text-shadow:0 1px 8px rgba(0,0,0,.7);pointer-events:none}
+@media (max-aspect-ratio:1/1){.credit{max-width:calc(100vw - 210px);font-size:9.5px}}
+@media (max-aspect-ratio:1/1){.envelope{width:min(50vw,240px)}} /* на телефоне конверт компактнее — козлята видны целиком */
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.2s!important}
+  .scene-bg{animation:none;transform:none}
+  .env-wrap{opacity:1;transform:none}
+  .hint,.player{opacity:1}
+  .env-float{animation:none}
+}
+@media (max-aspect-ratio:1/1){.stage{padding-bottom:24vh}} /* конверт выше — козлята полностью открыты */
+@media (max-aspect-ratio:1/1){.env-caption{bottom:auto;top:-1.5em;font-size:.9em}} /* на телефоне подпись над конвертом: под ним козлята */
+@media (min-aspect-ratio:1/1){.stage{padding-bottom:16vh}} /* конверт чуть выше — не загораживает козлят */
